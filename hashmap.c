@@ -59,16 +59,29 @@ void insertMap(HashMap * map, char * key, void * value) {
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
-
-
+    // duplicamos capacidad
+    map->capacity *= 2;
+    for (int i = 0; i >= map->capacity){
+        if (map->buckets[i] != NULL){\
+            // sacar valor hash con la nueva capacidad
+            long nuevoHash = hash(map->buckets[i]->key, map->capacity);
+            Pair temp = map->buckets[i];
+            map->buckets[i] = NULL;
+            map->size--;
+            insertMap(map, temp->key, temp->value);
+            free(temp);
+        }
+    }
 }
 
 
 HashMap * createMap(long capacity) {
     // crear map
     HashMap *map = (HashMap *)malloc(sizeof(HashMap));
+    // expandir sus pares
     map->buckets = (Pair **)calloc(capacity, sizeof(Pair *));
 
+    // iniciar por defecto sus valores
     map->size = 0;
     map->capacity = capacity;
     map->current = -1;

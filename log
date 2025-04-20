@@ -88,3 +88,39 @@ Sun, Apr 20, 2025  6:50:22 PM:
  tests:  5|4
 total_score: 30/70
 e8c4599
+Sun, Apr 20, 2025  7:15:46 PM: 
+ hashmap.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+Compilation failed
+In file included from test.c:4:
+hashmap.c: In function 'enlarge':
+hashmap.c:64:39: error: expected ';' before ')' token
+   64 |     for (int i = 0; i >= map->capacity){
+      |                                       ^
+      |                                       ;
+hashmap.c:68:25: error: invalid initializer
+   68 |             Pair temp = map->buckets[i];
+      |                         ^~~
+hashmap.c:71:32: error: invalid type argument of '->' (have 'Pair')
+   71 |             insertMap(map, temp->key, temp->value);
+      |                                ^~
+hashmap.c:71:43: error: invalid type argument of '->' (have 'Pair')
+   71 |             insertMap(map, temp->key, temp->value);
+      |                                           ^~
+hashmap.c:72:18: error: incompatible type for argument 1 of 'free'
+   72 |             free(temp);
+      |                  ^~~~
+      |                  |
+      |                  Pair
+In file included from test.c:2:
+C:/msys64/ucrt64/include/stdlib.h:453:27: note: expected 'void *' but argument is of type 'Pair'
+  453 |   void __cdecl free(void *_Memory);
+      |                     ~~~~~~^~~~~~~
+hashmap.c:67:18: warning: unused variable 'nuevoHash' [-Wunused-variable]
+   67 |             long nuevoHash = hash(map->buckets[i]->key, map->capacity);
+      |                  ^~~~~~~~~
+test.c: At top level:
+test.c:8:8: warning: '_strdup' redeclared without dllimport attribute: previous dllimport ignored [-Wattributes]
+    8 | char * _strdup(const char * str) {
+      |        ^~~~~~~
+cb81c24
