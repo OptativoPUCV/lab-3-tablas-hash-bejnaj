@@ -52,24 +52,24 @@ void insertMap(HashMap * map, char * key, void * value) {
         }
         lugarHash = (lugarHash + 1) % map->capacity;
     }
+    map->current = lugarHash;
     map->buckets[lugarHash] = createPair(key, value);
     map->size++;
-    map->current = lugarHash;
 }
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
+    // creamos copia de los datos actuales
+    Pair **antiguosDatos = map->buckets;
+    long capacidadOriginal = map->capacity;
     // duplicamos capacidad
     map->capacity *= 2;
-    for (int i = 0; i < map->capacity; i++){
-        if (map->buckets[i] != NULL){\
-            // sacar valor hash con la nueva capacidad
-            long nuevoHash = hash(map->buckets[i]->key, map->capacity);
-            Pair *temp = map->buckets[i];
-            map->buckets[i] = NULL;
-            map->size--;
-            insertMap(map, temp->key, temp->value);
-            free(temp);
+    // guardamos memoria para los buckets desde 0, con la nueva capacidad
+    map->buckets = (Pair **)calloc(map->capacity, sizeof(Pair *));
+    map->size = 0;
+    for (long i = 0; i < capacidadOriginal; i++) {
+        if (antiguosDatos[i] != NULL && antiguosDatos[i]->key != NULL) {
+            insertMap(map, antiguosDatos[i]->key, antiguosDatos[i]->value);
         }
     }
 }
