@@ -40,18 +40,18 @@ int is_equal(void* key1, void* key2){
 
 
 void insertMap(HashMap * map, char * key, void * value) {
-    lugarHash = hash(key, map->capacity);
-    while (map->buckets[index] != NULL && map->buckets[index]->key != NULL) {
-        if (is_equal(map->buckets[index]->key, key)) {
+    long lugarHash = hash(key, map->capacity);
+    while (map->buckets[lugarHash] != NULL && map->buckets[lugarHash]->key != NULL) {
+        if (is_equal(map->buckets[lugarHash]->key, key)) {
             // Si la clave ya existe, actualizar el valor
-            map->buckets[index]->value = value;
+            map->buckets[lugarHash]->value = value;
             return;
         }
-        index = (index + 1) % map->capacity; // Avanzar al siguiente índice (arreglo circular)  
+        lugarHash = (lugarHash + 1) % map->capacity; // Avanzar al siguiente índice (arreglo circular)  
     }
-    map->buckets[index] = createPair(key, value);
+    map->buckets[lugarHash] = createPair(key, value);
     map->size++; // Incrementar el tamaño de la tabla
-    map->current = index; // Actualizar el índice actual
+    map->current = lugarHash; // Actualizar el índice actual
 }
 
 void enlarge(HashMap * map) {
