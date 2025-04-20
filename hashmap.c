@@ -61,7 +61,7 @@ void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
     // duplicamos capacidad
     map->capacity *= 2;
-    for (int i = 0; i >= map->capacity; i++){
+    for (int i = 0; i < map->capacity; i++){
         if (map->buckets[i] != NULL){\
             // sacar valor hash con la nueva capacidad
             long nuevoHash = hash(map->buckets[i]->key, map->capacity);
