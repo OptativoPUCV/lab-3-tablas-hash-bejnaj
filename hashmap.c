@@ -42,10 +42,8 @@ int is_equal(void* key1, void* key2){
 void insertMap(HashMap * map, char * key, void * value) {
     long lugarHash = hash(key, map->capacity);
     while (map->buckets[lugarHash] != NULL && map->buckets[lugarHash]->key != NULL) {
-        if (is_equal(map->buckets[lugarHash]->key, key)) {
-            // Si la clave ya existe, actualizar el valor
+        if (map->buckets[lugarHash]->key == key) {
             map->buckets[lugarHash]->value = value;
-            return;
         }
         lugarHash = (lugarHash + 1) % map->capacity; // Avanzar al siguiente índice (arreglo circular)  
     }
