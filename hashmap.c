@@ -40,10 +40,15 @@ int is_equal(void* key1, void* key2){
 
 
 void insertMap(HashMap * map, char * key, void * value) {
+    // sacas el valor para indexar
     long lugarHash = hash(key, map->capacity);
+
+    // iteracion para buscar donde ubicarlo considerando colisiones
     while (map->buckets[lugarHash] != NULL && map->buckets[lugarHash]->key != NULL) {
         if (map->buckets[lugarHash]->key == key) {
+            // si existe actualizar valor
             map->buckets[lugarHash]->value = value;
+            return;
         }
         lugarHash = (lugarHash + 1) % map->capacity;
     }
