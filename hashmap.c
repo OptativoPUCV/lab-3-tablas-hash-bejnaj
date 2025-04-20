@@ -34,14 +34,24 @@ long hash( char * key, long capacity) {
 
 int is_equal(void* key1, void* key2){
     if(key1==NULL || key2==NULL) return 0;
-    if(strcmp((char*)key1,(char*)key2) == 0) return 1;
+    if(strcmp((char*)key1,(char*)key2) == 0) return 1; 
     return 0;
 }
 
 
 void insertMap(HashMap * map, char * key, void * value) {
-
-
+    lugarHash = hash(key, map->capacity);
+    while (map->buckets[index] != NULL && map->buckets[index]->key != NULL) {
+        if (is_equal(map->buckets[index]->key, key)) {
+            // Si la clave ya existe, actualizar el valor
+            map->buckets[index]->value = value;
+            return;
+        }
+        index = (index + 1) % map->capacity; // Avanzar al siguiente índice (arreglo circular)  
+    }
+    map->buckets[index] = createPair(key, value);
+    map->size++; // Incrementar el tamaño de la tabla
+    map->current = index; // Actualizar el índice actual
 }
 
 void enlarge(HashMap * map) {
