@@ -68,18 +68,12 @@ HashMap * createMap(long capacity) {
     // crear map
     HashMap *map = (HashMap *)malloc(sizeof(HashMap));
     map->buckets = (Pair **)calloc(capacity, sizeof(Pair *));
-    if (map->buckets == NULL) {
-        free(map); // Liberar memoria si falla la asignación de buckets
-        return NULL;
-    }
 
-    // Inicializar las variables del mapa
     map->size = 0;
     map->capacity = capacity;
-    map->current = -1; // Índice actual inicializado a -1
+    map->current = 0;
 
     return map;
-    return NULL;
 }
 
 void eraseMap(HashMap * map,  char * key) {    

@@ -76,3 +76,9 @@ Sun, Apr 20, 2025  6:48:41 PM:
  tests:  5|4
 total_score: 30/70
 9c9a0ba
+Sun, Apr 20, 2025  6:50:01 PM: 
+ hashmap.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+ tests:  4|5
+total_score: 20/70
+66a5784
