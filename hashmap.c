@@ -45,11 +45,11 @@ void insertMap(HashMap * map, char * key, void * value) {
         if (map->buckets[lugarHash]->key == key) {
             map->buckets[lugarHash]->value = value;
         }
-        lugarHash = (lugarHash + 1) % map->capacity; // Avanzar al siguiente índice (arreglo circular)  
+        lugarHash = (lugarHash + 1) % map->capacity;
     }
     map->buckets[lugarHash] = createPair(key, value);
-    map->size++; // Incrementar el tamaño de la tabla
-    map->current = lugarHash; // Actualizar el índice actual
+    map->size++;
+    map->current = lugarHash;
 }
 
 void enlarge(HashMap * map) {
