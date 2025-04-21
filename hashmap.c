@@ -100,6 +100,7 @@ void eraseMap(HashMap * map,  char * key) {
             free(map->buckets[index]);
             map->buckets[index] = NULL;
             map->size--;
+            if (map->current == index) map->current = -1;
         }
         else index = (index + 1) % map->capacity;
     }
