@@ -102,7 +102,7 @@ void eraseMap(HashMap * map,  char * key) {
             map->size--;
             if (map->current == index) map->current = -1;
         }
-        else index = (index + 1) % map->capacity;
+        index = (index + 1) % map->capacity;
     }
 }
 
