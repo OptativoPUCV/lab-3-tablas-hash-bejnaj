@@ -96,10 +96,10 @@ HashMap * createMap(long capacity) {
 void eraseMap(HashMap * map,  char * key) {    
     long index = hash(key, map->capacity);
     while (map->buckets[index] != NULL){
-        if (map->buckets[index]->key != NULL && strcmp(map->buckets[index]->key, key) == 0){
-            free(map->buckets[index]);
+        if (is_equal(map->buckets[index]->key, key)){
             map->buckets[index] = NULL;
             map->size--;
+            free(map->buckets[index]);
             if (map->current == index) map->current = -1;
         }
         index = (index + 1) % map->capacity;
