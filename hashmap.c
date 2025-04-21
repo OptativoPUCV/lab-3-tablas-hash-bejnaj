@@ -93,17 +93,15 @@ HashMap * createMap(long capacity) {
     return map;
 }
 
-void eraseMap(HashMap * map,  char * key) {    
+void eraseMap(HashMap * map,  char * key) {
     long index = hash(key, map->capacity);
-    while (map->buckets[index] != NULL){
-        if (is_equal(map->buckets[index]->key, key)){
-            free(map->buckets[index]);
-            map->buckets[index] = NULL;
+    while (map->buckets[index] != NULL) { 
+        if (is_equal(map->buckets[index]->key, key)) {
+            map->buckets[index]->key = NULL;
             map->size--;
-            if (map->current == index) map->current = -1;
+            return;
         }
-        return;
-        index = (index + 1) % map->capacity;
+        index = (pos + 1) % map->capacity;
     }
 }
 

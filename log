@@ -206,3 +206,19 @@ Sun, Apr 20, 2025  9:03:41 PM:
  tests:  6|3
 total_score: 40/70
 b7b5d8a
+Sun, Apr 20, 2025  9:04:12 PM: 
+ hashmap.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+Compilation failed
+In file included from test.c:4:
+hashmap.c: In function 'eraseMap':
+hashmap.c:104:18: error: 'pos' undeclared (first use in this function); did you mean 'pow'?
+  104 |         index = (pos + 1) % map->capacity;
+      |                  ^~~
+      |                  pow
+hashmap.c:104:18: note: each undeclared identifier is reported only once for each function it appears in
+test.c: At top level:
+test.c:8:8: warning: '_strdup' redeclared without dllimport attribute: previous dllimport ignored [-Wattributes]
+    8 | char * _strdup(const char * str) {
+      |        ^~~~~~~
+6c3f96c
