@@ -103,11 +103,14 @@ void eraseMap(HashMap * map,  char * key) {
         }
         index = (index + 1) % map->capacity;
     }
-
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
-
+    long index = hash(key, map->capacity);
+    while (map->buckets[index] != NULL){
+        if ()
+        index = (index + 1) % map->capacity;
+    }
 
     return NULL;
 }
