@@ -71,6 +71,7 @@ void enlarge(HashMap * map) {
     map->buckets = (Pair **)calloc(map->capacity, sizeof(Pair *));
     map->size = 0;
 
+    // iteracion para insertar los datos antiguos en el nuevo mapa
     for (long i = 0; i < capacidadOriginal; i++) {
         if (antiguosDatos[i] != NULL && antiguosDatos[i]->key != NULL) {
             insertMap(map, antiguosDatos[i]->key, antiguosDatos[i]->value);
@@ -94,19 +95,23 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {
+
     long index = hash(key, map->capacity);
+    // iteracion que borra y regresa el bucket eliminado
     while (map->buckets[index] != NULL) { 
         if (is_equal(map->buckets[index]->key, key)) {
             map->buckets[index]->key = NULL;
             map->size--;
             return;
         }
+        // actualiza el index al siguiente
         index = (index + 1) % map->capacity;
     }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
     long index = hash(key, map->capacity);
+    // iteracion que busca el bucket que contenga la key insertada
     while (map->buckets[index] != NULL){
         if (is_equal(map->buckets[index]->key, key)){
             map->current = index;
@@ -119,6 +124,7 @@ Pair * searchMap(HashMap * map,  char * key) {
 }
 
 Pair * firstMap(HashMap * map) {
+    // for dedicado a buscar hasta que encuentre el primer dato
     for (long i = 0; i < map->capacity; i++){
         if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
             map->current = i;
@@ -129,6 +135,7 @@ Pair * firstMap(HashMap * map) {
 }
 
 Pair * nextMap(HashMap * map) {
+    // for que empieza desde el current buscando el dato siguiente a este
     for (long i = map->current + 1; i < map->capacity; i++) {
         if (map->buckets[i] != NULL && map->buckets[i]->key != NULL) {
             map->current = i;
