@@ -59,14 +59,18 @@ void insertMap(HashMap * map, char * key, void * value) {
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
+
     // creamos copia de los datos actuales
     Pair **antiguosDatos = map->buckets;
     long capacidadOriginal = map->capacity;
+
     // duplicamos capacidad
     map->capacity *= 2;
+
     // guardamos memoria para los buckets desde 0, con la nueva capacidad
     map->buckets = (Pair **)calloc(map->capacity, sizeof(Pair *));
     map->size = 0;
+
     for (long i = 0; i < capacidadOriginal; i++) {
         if (antiguosDatos[i] != NULL && antiguosDatos[i]->key != NULL) {
             insertMap(map, antiguosDatos[i]->key, antiguosDatos[i]->value);
@@ -90,8 +94,15 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-
-
+    long index = hash(key, map->capacity);
+    while (map->buckets[index] != NULL){
+        if (map->buckets[index]->key == key){
+            free(map->buckets[index]);
+            map->buckets[index] = NULL;
+            map->size--;
+        }
+        else index = (index + 1) % map->capacity;
+    }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
